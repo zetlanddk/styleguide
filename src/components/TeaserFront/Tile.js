@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import Text from './Text'
 import colors from '../../theme/colors'
 
@@ -41,29 +41,29 @@ const styles = {
     textAlign: 'center',
     padding: '30px 15px 40px 15px',
     width: '100%',
-    [mUp]: {
+    ...frontMUp({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '60px 0'
-    }
+    })
   }),
   textContainer: css({
     padding: 0,
-    [mUp]: {
+    ...frontMUp({
       padding: '0 13%',
       width: '100%'
-    }
+    })
   }),
   imageContainer: css({
     margin: '0 auto 30px auto',
-    [mUp]: {
+    ...frontMUp({
       fontSize: 0 // Removes the small flexbox space.
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       margin: '0 auto 60px auto'
-    }
+    })
   }),
   onlyImageContainer: css({
     margin: '0 auto',
@@ -74,12 +74,8 @@ const styles = {
   image: css({
     minWidth: '100px',
     ...sizeSmall,
-    [mUp]: {
-      ...sizeMedium
-    },
-    [tUp]: {
-      ...sizeLarge
-    }
+    ...frontMUp(sizeMedium),
+    ...frontLUp(sizeLarge)
   }),
   onlyImage: css({
     minWidth: '100px',
@@ -89,38 +85,34 @@ const styles = {
   row: css({
     margin: 0,
     display: 'block',
-    [mUp]: {
+    ...frontMUp({
       display: 'flex'
-    }
+    })
   }),
   rowMobileReverse: css({
     margin: 0,
     display: 'flex',
     flexDirection: 'column-reverse',
-    [mUp]: {
+    ...frontMUp({
       flexDirection: 'row'
-    }
+    })
   }),
   col2: css({
-    [mUp]: {
+    ...frontMUp({
       '& .tile': {
         width: '50%'
       },
-      '& img': {
-        ...sizeSmall
-      }
-    },
-    [tUp]: {
-      '& img': {
-        ...sizeMedium
-      }
-    }
+      '& img': sizeSmall
+    }),
+    ...frontLUp({
+      '& img': sizeMedium
+    })
   }),
   col3: css({
     '& .tile': {
       borderTop: `1px solid ${colors.divider}`
     },
-    [mUp]: {
+    ...frontMUp({
       display: 'flex',
       flexFlow: 'row wrap',
       '& .tile': {
@@ -133,15 +125,11 @@ const styles = {
       '& .tile:nth-child(3n+1)': {
         borderLeft: 'none'
       },
-      '& img': {
-        ...sizeTiny
-      }
-    },
-    [tUp]: {
-      '& img': {
-        ...sizeSmall
-      }
-    }
+      '& img': sizeTiny
+    }),
+    ...frontLUp({
+      '& img': sizeSmall
+    })
   })
 }
 

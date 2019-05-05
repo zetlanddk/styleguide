@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp, tUp, dUp } from './mediaQueries'
+import { frontMUp, frontLUp, frontXLUp } from './mediaQueries'
 import { serifTitle20, sansSerifMedium20 } from '../Typography/styles'
 
 const size = {
@@ -29,45 +29,29 @@ const size = {
 const sizes = {
   large: css({
     ...size.s,
-    [mUp]: {
-      ...size.l
-    },
-    [tUp]: {
-      ...size.xl
-    },
-    [dUp]: {
-      ...size.xxl
-    }
+    ...frontMUp(size.l),
+    ...frontLUp(size.xl),
+    ...frontXLUp(size.xxl)
   }),
   medium: css({
     ...size.s,
-    [mUp]: {
-      ...size.m
-    },
-    [tUp]: {
-      ...size.l
-    },
-    [dUp]: {
-      ...size.xl
-    }
+    ...frontMUp(size.m),
+    ...frontLUp(size.l),
+    ...frontXLUp(size.xl)
   }),
   default: css({
     ...size.s,
-    [tUp]: {
-      ...size.m
-    },
-    [dUp]: {
-      ...size.l
-    }
+    ...frontLUp(size.m),
+    ...frontXLUp(size.l)
   })
 }
 
 const styles = {
   base: css({
     margin: '0 0 15px 0',
-    [mUp]: {
+    ...frontMUp({
       marginBottom: '30px'
-    }
+    })
   }),
   editorial: css({
     ...serifTitle20,

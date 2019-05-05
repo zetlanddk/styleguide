@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import Text from './Text'
 
 export const MAX_WIDTH_PERCENT = 70
@@ -13,13 +13,13 @@ const styles = {
   textContainer: css({
     margin: '0 auto',
     padding: '15px 15px 40px 15px',
-    [mUp]: {
+    ...frontMUp({
       maxWidth: `${MAX_WIDTH_PERCENT}%`,
       padding: '60px 0 80px 0'
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       padding: '80px 0 100px 0'
-    }
+    })
   })
 }
 

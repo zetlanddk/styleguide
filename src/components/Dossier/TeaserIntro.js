@@ -1,51 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css, merge } from 'glamor'
-import { mUp, tUp } from '../TeaserFront/mediaQueries'
+import { frontMUp, frontLUp } from '../TeaserFront/mediaQueries'
 import { FigureImage, FigureByline } from '../Figure'
 
 const styles = {
   container: css({
     margin: 0,
-    [mUp]: {
+    ...frontMUp({
       marginBottom: '40px'
-    }
+    })
   }),
   containerWithImage: css({
-    [mUp]: {
+    ...frontMUp({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
-    }
+    })
   }),
   content: css({
     padding: '0 0 15px 0',
-    [mUp]: {
+    ...frontMUp({
       padding: '0 0 15px 5%',
       width: '67%'
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       width: '51%'
-    }
+    })
   }),
   contentWithImage: css({
     paddingTop: '15px',
-    [mUp]: {
+    ...frontMUp({
       padding: '0 5% 0 5%',
       width: '60%'
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       width: '60%'
-    }
+    })
   }),
   imageContainer: css({
     position: 'relative',
-    [mUp]: {
+    ...frontMUp({
       flexShrink: 0,
       fontSize: 0, // Removes the small flexbox space.
       height: 'auto',
       width: '40%'
-    }
+    })
   }),
   image: css({
     height: 'auto',

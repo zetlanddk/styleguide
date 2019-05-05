@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import colors from '../../theme/colors'
 
 const TEXT_PADDING = 50
@@ -18,80 +18,61 @@ const positionFullWidth = {
 }
 
 const styles = {
-  rootPosition: css({
-    [tUp]: {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      overflow: 'hidden'
-    }
-  }),
-  rootMiddle: css({
-    [tUp]: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    }
-  }),
+  rootPosition: css(frontLUp({
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    overflow: 'hidden'
+  })),
+  rootMiddle: css(frontLUp({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  })),
   positioned: css({
     position: 'relative'
   }),
-  topleft: css({
-    [tUp]: {
-      ...positionHalfWidth,
-      left: `${TEXT_PADDING}px`,
-      top: `${TEXT_PADDING}px`
-    }
-  }),
-  topright: css({
-    [tUp]: {
-      ...positionHalfWidth,
-      left: '50%',
-      top: `${TEXT_PADDING}px`
-    }
-  }),
-  bottomleft: css({
-    [tUp]: {
-      ...positionHalfWidth,
-      bottom: `${TEXT_PADDING}px`,
-      left: `${TEXT_PADDING}px`
-      
-    }
-  }),
-  bottomright: css({
-    [tUp]: {
-      ...positionHalfWidth,
-      bottom: `${TEXT_PADDING}px`,
-      left: '50%'
-    }
-  }),
-  top: css({
-    [tUp]: {
-      ...positionFullWidth,
-      top: `${TEXT_PADDING}px`
-    }
-  }),
-  middle: css({
-    [tUp]: {
-      ...positionFullWidth
-    }
-  }),
-  bottom: css({
-    [tUp]: {
-      ...positionFullWidth,
-      bottom: `${TEXT_PADDING}px`
-    }
-  }),
+  topleft: css(frontLUp({
+    ...positionHalfWidth,
+    left: `${TEXT_PADDING}px`,
+    top: `${TEXT_PADDING}px`
+  })),
+  topright: css(frontLUp({
+    ...positionHalfWidth,
+    left: '50%',
+    top: `${TEXT_PADDING}px`
+  })),
+  bottomleft: css(frontLUp({
+    ...positionHalfWidth,
+    bottom: `${TEXT_PADDING}px`,
+    left: `${TEXT_PADDING}px`
+  })),
+  bottomright: css(frontLUp({
+    ...positionHalfWidth,
+    bottom: `${TEXT_PADDING}px`,
+    left: '50%'
+  })),
+  top: css(frontLUp({
+    ...positionFullWidth,
+    top: `${TEXT_PADDING}px`
+  })),
+  middle: css(frontLUp({
+    ...positionFullWidth
+  })),
+  bottom: css(frontLUp({
+    ...positionFullWidth,
+    bottom: `${TEXT_PADDING}px`
+  })),
   center: css({
     textAlign: 'center'
   }),
   centerMobileOnly: css({
     textAlign: 'center',
-    [mUp]: {
+    ...frontMUp({
       textAlign: 'inherit'
-    }
+    })
   })
 }
 
@@ -114,9 +95,7 @@ const Text = ({
 
   const colorStyle = collapsedColor && css({
     color: collapsedColor,
-    [tUp]: {
-      color
-    }
+    ...frontLUp({ color })
   })
 
   return (

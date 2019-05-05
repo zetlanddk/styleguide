@@ -1,23 +1,23 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import { serifTitle58, sansSerifMedium58 } from '../Typography/styles'
 
 const baseSize = {
   fontSize: '38px',
   lineHeight: '43px',
-  [mUp]: {
+  ...frontMUp({
     fontSize: '58px',
     lineHeight: '60px'
-  }
+  })
 }
 
 const styles = {
   base: css({
     margin: '0 0 15px 0',
-    [mUp]: {
+    ...frontMUp({
       marginBottom: '30px'
-    }
+    })
   }),
   editorial: css({
     ...serifTitle58
@@ -30,24 +30,24 @@ const styles = {
   }),
   large: css({
     ...baseSize,
-    [tUp]: {
+    ...frontLUp({
       fontSize: '125px',
       lineHeight: '137px'
-    }
+    })
   }),
   medium: css({
     ...baseSize,
-    [tUp]: {
+    ...frontLUp({
       fontSize: '100px',
       lineHeight: '110px'
-    }
+    })
   }),
   default: css({
     ...baseSize,
-    [tUp]: {
+    ...frontLUp({
       fontSize: '80px',
       lineHeight: '90px'
-    }
+    })
   })
 }
 

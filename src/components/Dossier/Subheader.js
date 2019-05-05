@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp } from '../TeaserFront/mediaQueries'
+import { frontMUp } from '../TeaserFront/mediaQueries'
 import { sansSerifMedium16, sansSerifMedium20 } from '../Typography/styles'
 
 const styles = {
@@ -9,10 +9,10 @@ const styles = {
     ...sansSerifMedium16,
     margin: '70px 0 30px 0',
     textAlign: 'center',
-    [mUp]: {
+    ...frontMUp({
       ...sansSerifMedium20,
       margin: '100px 0 70px 0',
-    }
+    })
   })
 }
 

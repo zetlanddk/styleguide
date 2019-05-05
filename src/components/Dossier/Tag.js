@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp } from '../TeaserFront/mediaQueries'
+import { frontMUp } from '../TeaserFront/mediaQueries'
 import { sansSerifMedium14, sansSerifMedium20 } from '../Typography/styles'
 import FolderOpen from 'react-icons/lib/fa/folder-open'
 
@@ -9,10 +9,10 @@ const styles = {
     display: 'inline-block',
     ...sansSerifMedium14,
     margin: '0 0 18px 0',
-    [mUp]: {
+    ...frontMUp({
       ...sansSerifMedium20,
       margin: '0 0 28px 0'
-    }
+    })
   }),
   icon: css({
     marginRight: '8px'

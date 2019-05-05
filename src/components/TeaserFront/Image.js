@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import colors from '../../theme/colors'
 import zIndex from '../../theme/zIndex'
 import { FigureImage, FigureByline } from '../Figure'
@@ -12,20 +12,20 @@ const containerStyle = {
   lineHeight: 0,
   margin: 0,
   zIndex: zIndex.frontImage,
-  [tUp]: {
+  ...frontLUp({
     background: 'none'
-  }
+  })
 }
 
 const textContainerStyle = {
   overflow: 'hidden',  // Hides unpositioned content on mobile.
   padding: '15px 15px 40px 15px',
-  [mUp]: {
+  ...frontMUp({
     padding: '40px 15% 70px 15%'
-  },
-  [tUp]: {
+  }),
+  ...frontLUp({
     padding: 0
-  }
+  })
 }
 
 const styles = {
@@ -35,10 +35,10 @@ const styles = {
   containerFeuilleton: css({
     ...containerStyle,
     margin: '15px',
-    [mUp]: {
+    ...frontMUp({
       background: 'none',
       margin: '50px 5%'
-    }
+    })
   }),
   textContainer: css({
     ...textContainerStyle
@@ -46,12 +46,12 @@ const styles = {
   textContainerFeuilleton: css({
     ...textContainerStyle,
     padding: '15px 0 40px 0',
-    [mUp]: {
+    ...frontMUp({
       padding: '40px 0 70px 0'
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       padding: 0
-    }
+    })
   })
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { tUp } from '../TeaserFront/mediaQueries'
+import { frontLUp } from '../TeaserFront/mediaQueries'
 import {
   serifTitle26,
   serifTitle32,
@@ -13,28 +13,22 @@ import {
 const styles = {
   base: css({
     margin: 0,
-    marginBottom: '16px',
-    [tUp]: {
-      marginBottom: '25px'
-    }
+    marginBottom: 16,
+    ...frontLUp({
+      marginBottom: 25
+    })
   }),
   editorial: css({
     ...serifTitle26,
-    [tUp]: {
-      ...serifTitle32
-    }
+    ...frontLUp(serifTitle32)
   }),
   interaction: css({
     ...sansSerifMedium26,
-    [tUp]: {
-      ...sansSerifMedium32
-    }
+    ...frontLUp(sansSerifMedium32)
   }),
   scribble: css({
     ...cursiveTitle26,
-    [tUp]: {
-      ...cursiveTitle32
-    }
+    ...frontLUp(cursiveTitle32)
   })
 }
 

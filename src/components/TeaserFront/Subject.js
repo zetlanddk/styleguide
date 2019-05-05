@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
 import { lab } from 'd3-color'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import {
   sansSerifRegular18,
   sansSerifRegular19,
@@ -12,9 +12,7 @@ import {
 const subjectStyle = {
   ...sansSerifRegular19,
   lineHeight: '27px',
-  [mUp]: {
-    ...sansSerifRegular23,
-  }
+  ...frontMUp(sansSerifRegular23)
 }
 
 const subject = css({
@@ -23,10 +21,10 @@ const subject = css({
 
 const subjectSmall = css({
   ...subjectStyle,
-  [mUp]: {
+  ...frontMUp({
     ...sansSerifRegular18,
     lineHeight: '24px'
-  }
+  })
 })
 
 const Subject = ({ children, color, collapsedColor, columns }) => {
@@ -41,9 +39,9 @@ const Subject = ({ children, color, collapsedColor, columns }) => {
       content: !!children.length ? " " : undefined
     },
     paddingRight: !!children.length ? '.2em' : 0,
-    [tUp]: {
+    ...frontLUp({
       color: labColor.l > 50 ? labColor.darker(2.0) : labColor.brighter(3.0),
-    }
+    })
   })
   return (
     <span {...style} {...(columns === 3 ? subjectSmall : subject)}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp, tUp, dUp } from './mediaQueries'
+import { frontMUp, frontLUp, frontXLUp } from './mediaQueries'
 import { MAX_WIDTH_PERCENT } from './Typo'
 import { serifTitle20, sansSerifMedium20 } from '../Typography/styles'
 
@@ -14,78 +14,78 @@ const breakoutMargin = {
 
 const serifSizes = {
   large: css({
-    [tUp]: {
+    ...frontLUp({
       fontSize: '125px',
       lineHeight: '137px'
-    },
-    [dUp]: {
+    }),
+    ...frontXLUp({
       fontSize: '156px',
       lineHeight: '169px'
-    }
+    })
   }),
   medium: css({
-    [tUp]: {
+    ...frontLUp({
       fontSize: '125px',
       lineHeight: '137px'
-    }
+    })
   }),
   default: css({
     fontSize: '38px',
     lineHeight: '45px',
-    [mUp]: {
+    ...frontMUp({
       fontSize: '100px',
       lineHeight: '110px',
       ...breakoutMargin
-    }
+    })
   })
 }
 
 const sansSerifSizes = {
   large: css({
-    [tUp]: {
+    ...frontLUp({
       fontSize: '125px',
       lineHeight: '137px'
-    },
-    [dUp]: {
+    }),
+    ...frontXLUp({
       fontSize: '156px',
       lineHeight: '169px'
-    }
+    })
   }),
   medium: css({
-    [tUp]: {
+    ...frontLUp({
       fontSize: '125px',
       lineHeight: '137px'
-    }
+    })
   }),
   small: css({
     fontSize: '26px',
     lineHeight: '31px',
-    [mUp]: {
+    ...frontMUp({
       fontSize: '50px',
       lineHeight: '57px'
-    },
-    [tUp]: {
+    }),
+    ...frontLUp({
       fontSize: '64px',
       lineHeight: '72px'
-    }
+    })
   }),
   default: css({
     fontSize: '38px',
     lineHeight: '45px',
-    [mUp]: {
+    ...frontMUp({
       fontSize: '100px',
       lineHeight: '110px',
       ...breakoutMargin
-    }
+    })
   })
 }
 
 const styles = {
   base: css({
     margin: '0 0 15px 0',
-    [mUp]: {
+    ...frontMUp({
       marginBottom: '30px'
-    }
+    })
   }),
   editorial: css({
     ...serifTitle20

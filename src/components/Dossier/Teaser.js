@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp } from '../TeaserFront/mediaQueries'
+import { frontMUp } from '../TeaserFront/mediaQueries'
 
 const styles = {
   container: css({
@@ -10,9 +10,9 @@ const styles = {
     lineHeight: 0,
     margin: 0,
     padding: '30px 15px',
-    [mUp]: {
+    ...frontMUp({
       padding: '60px 0'
-    }
+    })
   })
 }
 

@@ -484,6 +484,18 @@ ReactDOM.render(
               ...require('./components/Figure')
             },
             src: require('./components/Dossier/Teaser.md')
+          },
+          {
+            path: '/teaserfrontscaler',
+            title: 'FrontScaler',
+            imports: {
+              css,
+              t,
+              ...require('./components/Typography'),
+              ...require('./components/TeaserFront'),
+              Image: require('./components/Figure/Image')
+            },
+            src: require('./components/TeaserFront/Scaler.md')
           }
         ]
       },

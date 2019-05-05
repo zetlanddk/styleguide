@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
-import { mUp, dUp } from './mediaQueries'
+import { frontMUp, frontXLUp } from './mediaQueries'
 import { FigureImage, FigureByline } from '../Figure'
 import Text from './Text'
 
@@ -9,77 +9,73 @@ const styles = {
   container: css({
     margin: 0,
     overflow: 'hidden',
-    [mUp]: {
+    ...frontMUp({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '70px 5%'
-    }
+    })
   }),
   containerFeuilleton: css({
     margin: 0,
     overflow: 'hidden',
-    [mUp]: {
+    ...frontMUp({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '50px 5%'
-    }
+    })
   }),
   containerPortrait: css({
-    [mUp]: {
+    ...frontMUp({
       padding: 0,
       alignItems: 'flex-start'
-    }
+    })
   }),
   content: css({
     padding: '15px 15px 40px 15px',
-    [mUp]: {
+    ...frontMUp({
       padding: '0 0 0 5%',
       width: '50%'
-    }
+    })
   }),
-  contentReverse: css({
-    [mUp]: {
-      padding: '0 5% 0 0'
-    }
-  }),
+  contentReverse: css(frontMUp({
+    padding: '0 5% 0 0'
+  })),
   contentPortrait: css({
     padding: '15px 15px 40px 15px',
-    [mUp]: {
+    ...frontMUp({
       padding: '40px 5%',
       width: '60%',
-    },
-    [dUp]: {
+    }),
+    ...frontXLUp({
       padding: '40px 5%'
-    }
+    })
   }),
   imageContainer: css({
     position: 'relative',
-    [mUp]: {
+    ...frontMUp({
       flexShrink: 0,
       fontSize: 0, // Removes the small flexbox space.
       height: 'auto',
       width: '50%'
-    }
+    })
   }),
   imageContainerFeuilleton: css({
     padding: '15px 15px 0 15px',
     position: 'relative',
-    [mUp]: {
+    ...frontMUp({
       padding: 0,
       flexShrink: 0,
       fontSize: 0, // Removes the small flexbox space.
       height: 'auto',
       width: '50%'
-    }
+    })
   }),
-  imageContainerPortrait: css({
-    [mUp]: {
-      width: '40%',
-      padding: 0
-    }
-  }),
+  imageContainerPortrait: css(frontMUp({
+    width: '40%',
+    padding: 0
+  })),
   image: css({
     height: 'auto',
     maxWidth: '100%'

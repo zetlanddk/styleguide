@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import colors from '../../theme/colors'
 import { css } from 'glamor'
-import { mUp } from './mediaQueries'
+import { frontMUp } from './mediaQueries'
 import {
   serifRegular18,
   serifRegular19,
@@ -18,18 +18,18 @@ const leadStyle = {
 
 const lead = css({
   ...leadStyle,
-  [mUp]: {
+  ...frontMUp({
     ...serifRegular23,
     margin: '0 0 20px 0'
-  }
+  })
 })
 
 const leadSmall = css({
   ...leadStyle,
-  [mUp]: {
+  ...frontMUp({
     ...serifRegular18,
     margin: '0 0 20px 0'
-  }
+  })
 })
 
 const Lead = ({ children, columns, attributes }) => (

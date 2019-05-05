@@ -4,7 +4,7 @@ import { Editorial } from '../Typography'
 import { lab } from 'd3-color'
 import { css } from 'glamor'
 import colors from '../../theme/colors'
-import { tUp } from './mediaQueries'
+import { frontLUp } from './mediaQueries'
 
 const CreditLink = ({ children, color, collapsedColor, ...props }) => {
   const labColor = lab(color)
@@ -22,9 +22,7 @@ const CreditLink = ({ children, color, collapsedColor, ...props }) => {
     ':hover': {
       color: labCollapsedColor.b > 0.5 ? labCollapsedColor.darker(0.6) : labCollapsedColor.brighter(0.6)
     },
-    [tUp]: {
-      ...baseColorStyle
-    }
+    ...frontLUp(baseColorStyle)
   } : baseColorStyle
 
   const style = css({

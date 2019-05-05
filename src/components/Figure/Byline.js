@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { sansSerifRegular10, sansSerifRegular12 } from '../Typography/styles'
 import { css, merge } from 'glamor'
 import { mUp } from '../../theme/mediaQueries'
-import { mUp as mUpFront } from '../TeaserFront/mediaQueries'
+import { frontMUp } from '../TeaserFront/mediaQueries'
 
 const styles = {
   byline: css({
@@ -31,27 +31,25 @@ const positionStyle = {
     display: 'block',
     marginTop: '5px',
     paddingLeft: '15px',
-    [mUpFront]: {
+    ...frontMUp({
       ...sansSerifRegular12,
       paddingLeft: 0
-    }
+    })
   }),
   belowFeuilleton: css({
     display: 'block',
     marginTop: '5px',
     paddingLeft: 0,
-    [mUpFront]: {
-      ...sansSerifRegular12
-    }
+    ...frontMUp(sansSerifRegular12)
   }),
   // right of relative container on desktop, below on mobile.
   right: css({
     paddingLeft: '15px',
-    [mUpFront]: {
+    ...frontMUp({
       ...positionBaseStyle,
       left: '100%',
       marginLeft: '18px'
-    }
+    })
   }),
   // right of relative container on desktop and mobile, always small font size.
   rightCompact: css({
@@ -59,30 +57,30 @@ const positionStyle = {
     ...sansSerifRegular10,
     left: '100%',
     marginLeft: '14px',
-    [mUpFront]: {
+    ...frontMUp({
       ...sansSerifRegular10
-    }
+    })
   }),
   // left of relative container on desktop, below on mobile.
   left: css({
     paddingLeft: '15px',
-    [mUpFront]: {
+    ...frontMUp({
       ...positionBaseStyle,
       left: 0,
       marginLeft: '-5px'
-    }
+    })
   }),
   // left inside relative container on desktop, below on mobile.
   leftInside: css({
     display: 'block',
     marginTop: '5px',
     paddingLeft: '15px',
-    [mUpFront]: {
+    ...frontMUp({
       ...positionBaseStyle,
       left: 0,
       marginTop: 0,
       marginLeft: '18px'
-    }
+    })
   }),
   // left inside relative container on desktop and mobile.
   leftInsideOnlyImage: css({
@@ -92,10 +90,10 @@ const positionStyle = {
     marginTop: 0,
     marginLeft: '15px',
     paddingLeft: '15px',
-    [mUpFront]: {
+    ...frontMUp({
       ...sansSerifRegular12,
       marginLeft: '18px'
-    }
+    })
   })
 }
 

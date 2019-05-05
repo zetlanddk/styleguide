@@ -1,7 +1,7 @@
 import React from 'react'
 import { css } from 'glamor'
 import colors from '../../theme/colors'
-import { mUp } from '../TeaserFront/mediaQueries'
+import { frontMUp } from '../TeaserFront/mediaQueries'
 import { sansSerifRegular15, sansSerifRegular21 } from '../Typography/styles'
 
 const styles = {
@@ -10,9 +10,7 @@ const styles = {
     margin: 0,
     minHeight: '15px',
     textAlign: 'center',
-    [mUp]: {
-      ...sansSerifRegular21,
-    },
+    ...frontMUp(sansSerifRegular21),
     '& > a': {
       color: colors.text
     },

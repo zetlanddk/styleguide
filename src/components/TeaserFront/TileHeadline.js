@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'glamor'
-import { mUp } from './mediaQueries'
+import { frontMUp } from './mediaQueries'
 import { serifTitle20, sansSerifMedium20, cursiveTitle20 } from '../Typography/styles'
 
 const smallSize = {
@@ -25,58 +25,44 @@ const styles = {
   base: css({
     margin: 0,
     marginBottom: 6,
-    [mUp]: {
+    ...frontMUp({
       marginBottom: 8
-    }
+    })
   }),
   editorialCol2: css({
     ...serifTitle20,
     ...smallSize,
-    [mUp]: {
-      ...standardSize
-    }
+    ...frontMUp(standardSize)
   }),
   editorialCol2Medium: css({
     ...serifTitle20,
     ...smallSize,
-    [mUp]: {
-      ...mediumSize
-    }
+    ...frontMUp(mediumSize)
   }),
   editorialCol3: css({
     ...serifTitle20,
     ...smallSize,
-    [mUp]: {
-      ...standardSize
-    }
+    ...frontMUp(standardSize)
   }),
   interactionCol2: css({
     ...sansSerifMedium20,
     ...smallSize,
-    [mUp]: {
-      ...standardSize
-    }
+    ...frontMUp(standardSize)
   }),
   interactionCol2Medium: css({
     ...sansSerifMedium20,
     ...smallSize,
-    [mUp]: {
-      ...mediumSize
-    }
+    ...frontMUp(mediumSize)
   }),
   interactionCol3: css({
     ...sansSerifMedium20,
     ...smallSize,
-    [mUp]: {
-      ...standardSize
-    }
+    ...frontMUp(standardSize)
   }),
   scribble: css({
     ...cursiveTitle20,
     ...smallSize,
-    [mUp]: {
-      ...standardSize
-    }
+    ...frontMUp(standardSize)
   })
 }
 

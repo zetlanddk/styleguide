@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'glamor'
 import { lab } from 'd3-color'
-import { mUp, tUp } from './mediaQueries'
+import { frontMUp, frontLUp } from './mediaQueries'
 import {
   sansSerifMedium16,
   sansSerifMedium20
@@ -11,10 +11,10 @@ import {
 const format = css({
   ...sansSerifMedium16,
   margin: '0 0 18px 0',
-  [mUp]: {
+  ...frontMUp({
     ...sansSerifMedium20,
     margin: '0 0 28px 0'
-  }
+  })
 })
 
 const Format = ({ children, color, collapsedColor }) => {
@@ -24,9 +24,9 @@ const Format = ({ children, color, collapsedColor }) => {
     color: labCollapsedColor.l > 50
       ? labCollapsedColor.darker(0.6)
       : labCollapsedColor.brighter(3.0),
-    [tUp]: {
+    ...frontLUp({
       color: labColor.l > 50 ? labColor.darker(2.0) : labColor.brighter(3.0),
-    }
+    })
   })
 
   return (

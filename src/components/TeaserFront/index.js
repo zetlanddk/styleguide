@@ -8,6 +8,7 @@ export const TeaserFrontSplitHeadline = { ..._SplitHeadline }
 export const TeaserFrontTypoHeadline = { ..._TypoHeadline }
 export const TeaserFrontTileHeadline = { ..._TileHeadline }
 
+export { default as TeaserFrontScaler } from './Scaler'
 export { default as TeaserFrontImage } from './Image'
 export { default as TeaserFrontTypo } from './Typo'
 export { default as TeaserFrontSplit } from './Split'
