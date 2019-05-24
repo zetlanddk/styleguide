@@ -30,13 +30,13 @@ const styles = {
       margin: `10px 0 ${isExpanded ? 24 : 16}px`,
       paddingLeft: nestLimitExceeded ? 0 : config.indentSize
     }),
-  verticalToggle: ({ drawLineEnd }) =>
+  verticalToggle: ({ lineEndMarker }) =>
     css({
       ...buttonStyle,
       position: 'absolute',
       top: 0,
       left: -((config.indentSize - config.verticalLineWidth) / 2),
-      bottom: drawLineEnd ? 20 : 0,
+      bottom: lineEndMarker === 'none' ? 18 : 20,
       width: config.indentSize,
 
       '&::before': {
@@ -52,22 +52,40 @@ const styles = {
       '&:hover::before': {
         background: colors.primary
       },
-      ...(drawLineEnd && {
-        '&::after': {
-          display: 'block',
-          content: '""',
-          position: 'absolute',
-          width: `${config.verticalLineWidth + 2 * 2}px`,
-          height: `${config.verticalLineWidth + 2 * 2}px`,
-          bottom: -2 - config.verticalLineWidth / 2,
-          borderRadius: '100%',
-          left: (config.indentSize - config.verticalLineWidth) / 2 - 2,
-          background: colors.divider
+      ...{
+        none: {},
+        dot: {
+          '&::after': {
+            display: 'block',
+            content: '""',
+            position: 'absolute',
+            width: `${config.verticalLineWidth + 2 * 2}px`,
+            height: `${config.verticalLineWidth + 2 * 2}px`,
+            bottom: -2 - config.verticalLineWidth / 2,
+            borderRadius: '100%',
+            left: (config.indentSize - config.verticalLineWidth) / 2 - 2,
+            background: colors.divider
+          },
+          '&:hover::after': {
+            background: colors.primary
+          }
         },
-        '&:hover::after': {
-          background: colors.primary
+        hook: {
+          '&::after': {
+            display: 'block',
+            content: '""',
+            position: 'absolute',
+            width: `${config.verticalLineWidth + 2 * 2}px`,
+            height: `2px`,
+            bottom: -2,
+            left: (config.indentSize - config.verticalLineWidth) / 2,
+            background: colors.divider
+          },
+          '&:hover::after': {
+            background: colors.primary
+          }
         }
-      })
+      }[lineEndMarker]
     })
 }
 
@@ -174,14 +192,24 @@ const CommentNode = ({ t, comment }) => {
   /*
    * This is an experiment to draw end points at the vertical toggle lines.
    */
-  const drawLineEnd = false
+  const lineEndMarker = (() => {
+    if (!comments || comments.totalCount === 0) {
+      return 'dot'
+    } else if (!isExpanded) {
+      return 'hook'
+    } else if (comments && comments.directTotalCount > (comments.nodes || []).length) {
+      return 'hook'
+    } else {
+      return 'none'
+    }
+  })()
 
   const rootStyle = styles.root({ isExpanded, nestLimitExceeded })
 
   if (isExpanded) {
     return (
       <div data-comment-id={id} {...rootStyle}>
-        {!nestLimitExceeded && <button {...styles.verticalToggle({ drawLineEnd })} onClick={toggleReplies} />}
+        {!nestLimitExceeded && <button {...styles.verticalToggle({ lineEndMarker })} onClick={toggleReplies} />}
         <div {...(mode === 'view' && isHighlighted ? styles.highlightContainer : {})}>
           {{
             view: () => (
@@ -256,7 +284,7 @@ const CommentNode = ({ t, comment }) => {
   } else {
     return (
       <div data-comment-id={id} {...rootStyle}>
-        <button {...styles.verticalToggle({ drawLineEnd })} onClick={toggleReplies} />
+        {!nestLimitExceeded && <button {...styles.verticalToggle({ lineEndMarker })} onClick={toggleReplies} />}
         <Comment.Header t={t} comment={comment} isExpanded={isExpanded} onToggle={toggleReplies} />
       </div>
     )
