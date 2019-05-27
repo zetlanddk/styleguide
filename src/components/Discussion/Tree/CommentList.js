@@ -1,13 +1,14 @@
 import React from 'react'
 import { css } from 'glamor'
+import scrollIntoView from 'scroll-into-view'
+
+import colors from '../../../theme/colors'
 import { DiscussionContext } from '../DiscussionContext'
 import { CommentComposer } from '../Composer/CommentComposer'
-
 import { LoadMore } from './LoadMore'
 import * as Comment from '../Internal/Comment'
-import colors from '../../../theme/colors'
-
 import * as config from '../config'
+import { mUp } from '../../../theme/mediaQueries'
 
 const buttonStyle = {
   display: 'block',
@@ -28,16 +29,25 @@ const styles = {
     css({
       position: 'relative',
       margin: `10px 0 ${isExpanded ? 24 : 16}px`,
-      paddingLeft: nestLimitExceeded ? 0 : config.indentSize
+      paddingLeft: nestLimitExceeded ? 0 : config.indentSizeS,
+
+      [mUp]: {
+        paddingLeft: nestLimitExceeded ? 0 : config.indentSizeM
+      }
     }),
   verticalToggle: ({ lineEndMarker }) =>
     css({
       ...buttonStyle,
       position: 'absolute',
       top: 0,
-      left: -((config.indentSize - config.verticalLineWidth) / 2),
+      left: -((config.indentSizeS - config.verticalLineWidth) / 2),
       bottom: lineEndMarker === 'none' ? 18 : 20,
-      width: config.indentSize,
+      width: config.indentSizeS,
+
+      [mUp]: {
+        left: -((config.indentSizeM - config.verticalLineWidth) / 2),
+        width: config.indentSizeM
+      },
 
       '&::before': {
         display: 'block',
@@ -45,9 +55,13 @@ const styles = {
         position: 'absolute',
         top: 0,
         bottom: 0,
-        left: (config.indentSize - config.verticalLineWidth) / 2,
+        left: (config.indentSizeS - config.verticalLineWidth) / 2,
         width: config.verticalLineWidth,
-        background: colors.divider
+        background: colors.divider,
+
+        [mUp]: {
+          left: (config.indentSizeM - config.verticalLineWidth) / 2
+        }
       },
       '&:hover::before': {
         background: colors.primary
@@ -63,8 +77,11 @@ const styles = {
             height: `${config.verticalLineWidth + 2 * 2}px`,
             bottom: -2 - config.verticalLineWidth / 2,
             borderRadius: '100%',
-            left: (config.indentSize - config.verticalLineWidth) / 2 - 2,
-            background: colors.divider
+            left: (config.indentSizeS - config.verticalLineWidth) / 2 - 2,
+            background: colors.divider,
+            [mUp]: {
+              left: (config.indentSizeM - config.verticalLineWidth) / 2 - 2
+            }
           },
           '&:hover::after': {
             background: colors.primary
@@ -78,8 +95,11 @@ const styles = {
             width: `${config.verticalLineWidth + 2 * 2}px`,
             height: `2px`,
             bottom: -2,
-            left: (config.indentSize - config.verticalLineWidth) / 2,
-            background: colors.divider
+            left: (config.indentSizeS - config.verticalLineWidth) / 2,
+            background: colors.divider,
+            [mUp]: {
+              left: (config.indentSizeM - config.verticalLineWidth) / 2
+            }
           },
           '&:hover::after': {
             background: colors.primary
@@ -142,6 +162,8 @@ const CommentNode = ({ t, comment }) => {
   const isHighlighted = id === highlightedCommentId
   const nestLimitExceeded = parentIds.length > config.nestLimit
 
+  const root = React.useRef()
+
   /*
    * The local state that the CommentNode component manages.
    *
@@ -182,12 +204,26 @@ const CommentNode = ({ t, comment }) => {
   const closeEditor = React.useCallback(() => {
     dispatch({ closeEditor: {} })
   }, [dispatch])
-  const toggleReplies = React.useCallback(() => {
-    dispatch({ toggleReplies: {} })
-  }, [dispatch])
   const closeReplyComposer = React.useCallback(() => {
     dispatch({ closeReplyComposer: {} })
   }, [dispatch])
+
+  const toggleReplies = React.useCallback(() => {
+    dispatch({ toggleReplies: {} })
+
+    /*
+     * When collapsing the node, and the top of the node is outside of the viewport
+     * (eg. the user is collapsing a really long thread), scroll up to make sure
+     * the node is in the viewport.
+     *
+     * FIXME: 60 is the header height (plus some), but that height is different
+     * on mobile and desktop.
+     */
+    const topOffset = 60
+    if (isExpanded && root.current.getBoundingClientRect().top < topOffset) {
+      scrollIntoView(root.current, { align: { top: 0, topOffset } })
+    }
+  }, [dispatch, isExpanded])
 
   /*
    * This is an experiment to draw end points at the vertical toggle lines.
@@ -208,7 +244,7 @@ const CommentNode = ({ t, comment }) => {
 
   if (isExpanded) {
     return (
-      <div data-comment-id={id} {...rootStyle}>
+      <div ref={root}  data-comment-id={id} {...rootStyle}>
         {!nestLimitExceeded && <button {...styles.verticalToggle({ lineEndMarker })} onClick={toggleReplies} />}
         <div {...(mode === 'view' && isHighlighted ? styles.highlightContainer : {})}>
           {{
@@ -283,7 +319,7 @@ const CommentNode = ({ t, comment }) => {
     )
   } else {
     return (
-      <div data-comment-id={id} {...rootStyle}>
+      <div ref={root} data-comment-id={id} {...rootStyle}>
         {!nestLimitExceeded && <button {...styles.verticalToggle({ lineEndMarker })} onClick={toggleReplies} />}
         <Comment.Header t={t} comment={comment} isExpanded={isExpanded} onToggle={toggleReplies} />
       </div>

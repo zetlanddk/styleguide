@@ -210,6 +210,10 @@ The two primary actions on the right (_onClose_, _onSubmit_) are always present.
 
 `<SecondaryAction>` renders as a button by default, but you can adjust that with the `as` prop. It also sets up CSS for font, color, and hover style to match the primary actions.
 
+```hint
+Due to limited space on mobile devices, you can really only put two actions (28px wide) into the secondary actions slot. Make sure you test that everything fits on a 320px wide screen and when the composer is shown in a deeply nested setting (with 5 vertical bars left of it), where the composer is squeezed into 240px.
+```
+
 ```react|noSource,span-2
 <DiscussionContext.Provider
   value={{
@@ -244,4 +248,18 @@ The error message that is shown at the bottom of the `<CommentComposer>` if crea
 <Composer.Error>
   Sie sind zu früh. Bitte warten Sie, 161.446s bevor Sie wieder kommentieren.
 </Composer.Error>
+```
+
+# Tree
+
+#### LoadMore
+
+This is a button that shows how many more comments can be loaded at this point in the comment tree. It starts out as just text in primary color. But if a new comment is added to the discussion while the user has the page open, it changes style.
+
+```react|noSource,span-3
+<LoadMore1 t={t} count={17} />
+```
+
+```react|noSource,span-3
+<LoadMore1 t={t} alternative count={18}/>
 ```
