@@ -25,6 +25,20 @@ const styles = {
     margin: '0 -7px 12px -7px',
     background: colors.primaryBg
   }),
+  commentWrapper: ({ isExpanded }) =>
+    css({
+      /*
+       * On larger screens, hide the action button and reveal only on hover.
+       */
+      [mUp]: isExpanded && {
+        [`& [data-${Comment.headerActionStyle({ isExpanded })}]`]: {
+          display: 'none'
+        },
+        [`&:hover [data-${Comment.headerActionStyle({ isExpanded })}]`]: {
+          display: 'block'
+        }
+      }
+    }),
   root: ({ isExpanded, nestLimitExceeded }) =>
     css({
       position: 'relative',
@@ -112,23 +126,19 @@ const styles = {
 export const CommentList = ({ t, parentId = null, comments }) => {
   const { actions } = React.useContext(DiscussionContext)
 
-  if (!comments) {
-    return null
-  }
+  const { nodes = [], totalCount = 0, pageInfo } = comments
+  const { endCursor } = pageInfo || {}
+  const lastNode = nodes[nodes.length - 1]
 
-  const { nodes = [] } = comments
+  const loadMore = React.useCallback(() => {
+    const appendAfter = lastNode ? lastNode.id : undefined
+    actions.fetchMoreComments({ parentId, after: endCursor, appendAfter })
+  }, [parentId, endCursor, lastNode])
 
   const numMoreComments = (() => {
-    const countComments = comments => {
-      if (comments && comments.totalCount) {
-        return comments.totalCount || 0
-      } else {
-        return 0
-      }
-    }
-
+    const countComments = ({ totalCount = 0 } = {}) => totalCount
     const availableCount = nodes.reduce((a, { comments }) => a + 1 + countComments(comments), 0)
-    return comments.totalCount - availableCount
+    return totalCount - availableCount
   })()
 
   return (
@@ -136,17 +146,7 @@ export const CommentList = ({ t, parentId = null, comments }) => {
       {nodes.map(comment => (
         <CommentNode key={comment.id} t={t} comment={comment} />
       ))}
-
-      {numMoreComments > 0 && (
-        <LoadMore
-          t={t}
-          visualDepth={0}
-          count={numMoreComments}
-          onClick={() => {
-            actions.fetchMoreComments(parentId, comments.pageInfo.endCursor)
-          }}
-        />
-      )}
+      <LoadMore t={t} visualDepth={0} count={numMoreComments} onClick={loadMore} />
     </>
   )
 }
@@ -249,12 +249,12 @@ const CommentNode = ({ t, comment }) => {
         <div {...(mode === 'view' && isHighlighted ? styles.highlightContainer : {})}>
           {{
             view: () => (
-              <>
+              <div {...styles.commentWrapper({ isExpanded })}>
                 <Comment.Header t={t} comment={comment} isExpanded={isExpanded} onToggle={toggleReplies} />
                 <div style={{ marginTop: 12 }}>
                   <Comment.Body t={t} comment={comment} context={tags[0] ? { title: tags[0] } : undefined} />
                 </div>
-              </>
+              </div>
             ),
             edit: () => (
               <CommentComposer
@@ -308,13 +308,7 @@ const CommentNode = ({ t, comment }) => {
           </div>
         )}
 
-        {(() => {
-          if (comments && comments.totalCount > 0) {
-            return <CommentList t={t} parentId={id} comments={comments} />
-          } else {
-            return null
-          }
-        })()}
+        <CommentList t={t} parentId={id} comments={comments} />
       </div>
     )
   } else {

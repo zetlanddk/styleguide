@@ -10,7 +10,7 @@ import { sansSerifRegular14 } from '../../../Typography/styles'
 import colors from '../../../../theme/colors'
 import { mUp } from '../../../../theme/mediaQueries'
 import { useMediaQuery } from '../../../../lib/useMediaQuery'
-import { useSize } from '../../../../lib/useSize'
+import { useBoundingClientRect } from '../../../../lib/useBoundingClientRect'
 
 import createCommentSchema from '../../../../templates/Comment'
 
@@ -63,8 +63,18 @@ const styles = {
     marginBottom: 10
   }),
   collapeToggleContainer: css({
+    position: 'relative',
     borderTop: `1px solid ${colors.divider}`,
-    marginTop: 6
+    '&::before': {
+      position: 'absolute',
+      display: 'block',
+      content: '""',
+      left: 0,
+      right: 0,
+      top: -61,
+      height: 60,
+      background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)'
+    }
   }),
   collapseToggleButton: css({
     ...buttonStyle,
@@ -109,7 +119,7 @@ export const Body = ({ t, comment, context }) => {
    *   - 'preview': The body is collapsed.
    */
   const [bodyVisibility, setBodyVisibility] = React.useState('indeterminate')
-  const [bodyRef, bodySize] = useSize()
+  const [bodyRef, bodySize] = useBoundingClientRect([content])
   const isDesktop = useMediaQuery(mUp)
   React.useEffect(() => {
     /*
@@ -142,7 +152,7 @@ export const Body = ({ t, comment, context }) => {
       {!published && <div {...styles.unpublished}>{t('styleguide/comment/unpublished')}</div>}
 
       <div ref={bodyRef} {...(collapsed ? styles.collapsedBody : undefined)} style={{ opacity: published ? 1 : 0.5 }}>
-        {context && context.title && (
+        {content && context && context.title && (
           <div {...styles.context}>
             <Context {...context} />
           </div>
