@@ -37,6 +37,8 @@ import {
   InfoBox,
   InfoBoxTitle,
   InfoBoxText,
+  InfoBoxListItem,
+  InfoBoxSubhead,
   INFOBOX_DEFAULT_IMAGE_SIZE
 } from '../../components/InfoBox'
 import { Tweet } from '../../components/Social'
@@ -149,6 +151,27 @@ const paragraph = {
         ...globalInlines,
         ...editorialFormatting
       ]
+    }
+  ]
+}
+
+const list = {
+  matchMdast: matchType('list'),
+  component: List,
+  props: node => ({
+    data: {
+      ordered: node.ordered,
+      start: node.start,
+      compact: !node.loose
+    }
+  }),
+  editorModule: 'list',
+  rules: [
+    {
+      matchMdast: matchType('listItem'),
+      component: ListItem,
+      editorModule: 'listItem',
+      rules: [paragraph]
     }
   ]
 }
@@ -346,6 +369,40 @@ const infoBox = {
         isStatic: true
       },
       rules: globalInlines
+    },
+    {
+      matchMdast: matchHeading(4),
+      component: InfoBoxSubhead,
+      editorModule: 'headline',
+      editorOptions: {
+        placeholder: 'Titel',
+        type: 'LOGBOOK_TITLE',
+        depth: 4,
+        isStatic: true
+      },
+      rules: globalInlines
+    },
+    {
+      ...list,
+      rules: [
+        {
+          matchMdast: matchType('listItem'),
+          component: InfoBoxListItem,
+          editorModule: 'listItem',
+          rules: [
+            {
+              matchMdast: matchParagraph,
+              component: InfoBoxText,
+              editorModule: 'paragraph',
+              editorOptions: {
+                type: 'INFOP',
+                placeholder: 'Infotext'
+              },
+              rules: interactionParagraphRules
+            }
+          ]
+        }
+      ]
     },
     {
       ...figure,
@@ -874,26 +931,7 @@ const createSchema = ({
                   ]
                 }
               },
-              {
-                matchMdast: matchType('list'),
-                component: List,
-                props: node => ({
-                  data: {
-                    ordered: node.ordered,
-                    start: node.start,
-                    compact: !node.loose
-                  }
-                }),
-                editorModule: 'list',
-                rules: [
-                  {
-                    matchMdast: matchType('listItem'),
-                    component: ListItem,
-                    editorModule: 'listItem',
-                    rules: [paragraph]
-                  }
-                ]
-              },
+              list,
               {
                 matchMdast: matchType('thematicBreak'),
                 component: HR,

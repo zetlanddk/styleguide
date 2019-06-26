@@ -276,11 +276,23 @@ export const sansSerifMedium19 = {
   fontWeight: 'normal',
   lineHeight: '30px',
 }
+export const sansSerifMedium18 = {
+  fontFamily: fontFamilies.sansSerifMedium,
+  fontSize: 18,
+  fontWeight: 'normal',
+  lineHeight: '24px',
+}
 export const sansSerifMedium16 = {
   fontFamily: fontFamilies.sansSerifMedium,
   fontSize: 16,
   fontWeight: 'normal',
   lineHeight: '25px',
+}
+export const sansSerifMedium15 = {
+  fontFamily: fontFamilies.sansSerifMedium,
+  fontSize: 15,
+  fontWeight: 'normal',
+  lineHeight: '24px',
 }
 export const sansSerifMedium14 = {
   fontFamily: fontFamilies.sansSerifMedium,

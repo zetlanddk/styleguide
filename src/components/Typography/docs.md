@@ -122,7 +122,7 @@ import {colors: {text}, fontStyles: {serifRegular21}} from '@project-r/styleguid
 <div {...css(styles.serifRegular14)}>The quick brown fox jumps over the lazy dog</div>
 ```
 
-#### `sansSerifMedium{58,40,32,26,22,20,19,16}`
+#### `sansSerifMedium{58,40,32,26,22,20,19,18,16,15}`
 ```react|noSource,plain
 <div {...css(styles.sansSerifMedium58)}>The quick brown fox jumps over</div>
 ```
@@ -145,7 +145,13 @@ import {colors: {text}, fontStyles: {serifRegular21}} from '@project-r/styleguid
 <div {...css(styles.sansSerifMedium19)}>The quick brown fox jumps over the lazy dog</div>
 ```
 ```react|noSource,plain
+<div {...css(styles.sansSerifMedium18)}>The quick brown fox jumps over the lazy dog</div>
+```
+```react|noSource,plain
 <div {...css(styles.sansSerifMedium16)}>The quick brown fox jumps over the lazy dog</div>
+```
+```react|noSource,plain
+<div {...css(styles.sansSerifMedium15)}>The quick brown fox jumps over the lazy dog</div>
 ```
 
 #### `sansSerifRegular{30,23,21,18,16,15,14,13,12,11,10}`
