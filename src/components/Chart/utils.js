@@ -68,7 +68,7 @@ export const measure = onMeasure => {
   }
 }
 
-const thousandSeparator = '\u2009'
+const thousandSeparator = '.'
 const swissNumbers = formatLocale({
   decimal: ',',
   thousands: thousandSeparator,
@@ -86,7 +86,7 @@ const formatPow = (tLabel, baseValue) => {
     suffix = tLabel(' Mrd.')
   } else if (n.length > 6) {
     scale = value => value / Math.pow(10, 6)
-    suffix = tLabel(' Mio.')
+    suffix = tLabel(' mio.')
   }
   return {
     scale,
